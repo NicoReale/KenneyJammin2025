@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
 public class HealthComponent
 {
+
     int health;
 
     public HealthComponent(int hp)

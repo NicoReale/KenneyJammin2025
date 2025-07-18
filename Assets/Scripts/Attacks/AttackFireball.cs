@@ -2,19 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackFireball : MonoBehaviour
+public class AttackFireball : MonoBehaviour, IAttack
 {
-    int direction = 1;
     float speed = 4f;
-    public AttackFireball Initialize(int direction)
-    {
-        this.direction = direction;
-        return this;
-    }
 
     void Update()
     {
-        transform.position += (Vector3.left * direction) * speed * Time.deltaTime;
+        transform.position += transform.right * speed * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -26,5 +20,15 @@ public class AttackFireball : MonoBehaviour
             Destroy(enemy.gameObject);
             Destroy(gameObject);
         }
+    }
+
+    public void Initialize()
+    {
+        
+    }
+
+    public GameObject Self()
+    {
+        return gameObject;
     }
 }

@@ -16,11 +16,11 @@ public class EnemyManager : MonoBehaviour
         var val = Random.value;
         if (val >= 0.51f)
         {
-            Instantiate(enemyBehaviour, LeftSpawnPoint.transform.position, Quaternion.identity).Initialize(-1);
+            Instantiate(enemyBehaviour, LeftSpawnPoint.transform.position, Quaternion.identity).Initialize(ATTACKANGLE.LEFT);
         }
         else
         {
-            Instantiate(enemyBehaviour, RightSpawnPoint.transform.position, Quaternion.identity).Initialize(1);
+            Instantiate(enemyBehaviour, RightSpawnPoint.transform.position, Quaternion.identity).Initialize(ATTACKANGLE.RIGHT);
         }
     }
 

@@ -5,49 +5,34 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    [SerializeField]
-    Transform LeftAttackPoint, RightAttackPoint;
-    [SerializeField]
-    AttackFireball fireball;
+
 
     [SerializeField]
     HealthComponent health;
+    AttackBehaviour attackBehaviour;
+    AttackFactory attackFactory;
     float mana = 100;
 
+    [SerializeField]
+    Transform LeftAttackPoint, RightAttackPoint, TopRightAttackPoint, TopLeftAttackPoint;
+    [SerializeField]
+    AttackFireball fireball;
+    [SerializeField]
+    AttackWave wave;
 
     private void Awake()
     {
         health = new HealthComponent(100);
-    }
+        attackFactory = new AttackFactory().Initialize();
+        attackBehaviour = new AttackBehaviour().Initialize(LeftAttackPoint,RightAttackPoint,TopRightAttackPoint,TopLeftAttackPoint, fireball, wave);
 
+        attackBehaviour.ShootAttack += attackFactory.GetAttack;
+    }
 
     public void Attack(ATTACKANGLE side)
     {
-        if (mana < 1) return;
-        switch(side)
-        {
-            case ATTACKANGLE.LEFT:
-                Debug.Log("Attack Left");
-                Instantiate(fireball, LeftAttackPoint.transform.position, Quaternion.identity).Initialize(1);
-                mana -= 30;
-                return;
-            case ATTACKANGLE.RIGHT:
-                Debug.Log("Attack Right");
-                Instantiate(fireball, RightAttackPoint.transform.position, Quaternion.identity).Initialize(-1);
-                mana -= 30;
-                return;
-            case ATTACKANGLE.TOP:
-                return;
-            case ATTACKANGLE.TOPRIGHT:
-                return;
-            case ATTACKANGLE.TOPLEFT:
-                return;
-        }
+        attackBehaviour.Attack(side);
     }
 
-    public void Update()
-    {
-        mana += 5 * Time.deltaTime;
-    }
 
 }
