@@ -1,35 +1,58 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
-public class AttackFactory
+public class AttackFactory<T>
 {
-    public AttackFactory Initialize()
+    List<T> _currentStock;
+    Func<T> _factoryMethod; //Create
+    bool _isDynamic;
+    Action<T> _turnOnCallback;
+    Action<T> _turnOffCallback;
+
+
+    public ObjectPool(Func<T> factroyMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, int initialStock = 0, bool isDynamic = true)
+    {
+        _factoryMethod = factroyMethod;
+        _isDynamic = isDynamic;
+
+        _turnOnCallback = turnOnCallback;
+        _turnOffCallback = turnOffCallback;
+        _currentStock = new List<T>();
+
+        for(var i = 0; i < initialStock; i++)
+        {
+            var o = _factoryMethod();
+            _turnOffCallback(o);
+            _currentStock.Add(o);
+        }
+    }
+
+    /*public AttackFactory Initialize()
     {
         return this;
     }
 
-    public IAttack GetAttack(IAttack projectile, Vector3 position, Quaternion rotation)
+    public IAttack GetAttack(ATTACKANGLE direction, Vector3 position, Quaternion rotation)
     {
 
-        var attack = GameManager.Instantiate(projectile.Self(), position, rotation);
-
-        if(attack.GetComponent<AttackFireball>() != null )
+        var attack = AttackPool<AttackFireball>.instance.GetPooledObject();
+        if(attack != null)
         {
-            var newAttack = attack.GetComponent<AttackFireball>();
+            attack.SetActive(true);
+            attack.transform.position = position;
+            attack.transform.rotation = rotation;
+
+            var newAttack = attack.GetComponent<IAttack>();
             newAttack.Initialize();
-            return newAttack;
         }
-
-        if(attack.GetComponent<AttackWave>() != null)
-        {
-            var newAttack = attack.GetComponent<AttackWave>();
-            newAttack.Initialize();
-            return newAttack;
-        }
-
-
 
         return null;
-    }
+
+    }*/
+
+
+
 }

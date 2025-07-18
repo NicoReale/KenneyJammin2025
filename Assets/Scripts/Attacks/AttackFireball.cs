@@ -2,33 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackFireball : MonoBehaviour, IAttack
+public class AttackFireball : PlayerAttack
 {
-    float speed = 4f;
+    float speed;
 
     void Update()
     {
         transform.position += transform.right * speed * Time.deltaTime;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    public override void Initialize()
     {
-        Debug.Log(collision);
-        var enemy = collision.gameObject.GetComponent<EnemyBehaviour>();
-        if(enemy != null)
-        {
-            Destroy(enemy.gameObject);
-            Destroy(gameObject);
-        }
+        speed = 4f;
     }
 
-    public void Initialize()
-    {
-        
-    }
 
-    public GameObject Self()
-    {
-        return gameObject;
-    }
 }
