@@ -10,8 +10,17 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     AttackFireball fireball;
 
-
+    [SerializeField]
+    HealthComponent health;
     float mana = 100;
+
+
+    private void Awake()
+    {
+        health = new HealthComponent(100);
+    }
+
+
     public void Attack(ATTACKANGLE side)
     {
         if (mana < 1) return;
@@ -39,10 +48,6 @@ public class PlayerBehaviour : MonoBehaviour
     public void Update()
     {
         mana += 5 * Time.deltaTime;
-        if(Mathf.RoundToInt(mana) % 10 == 0 )
-        {
-            Debug.Log(mana);
-        }
     }
 
 }

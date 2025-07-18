@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    EnemyBehaviour enemyBehaviour;
+    [SerializeField]
+    Transform LeftSpawnPoint, RightSpawnPoint;
+
+    float Timer;
+
+    public void SpawnEnemy()
     {
-        
+        var val = Random.value;
+        if (val >= 0.51f)
+        {
+            Instantiate(enemyBehaviour, LeftSpawnPoint.transform.position, Quaternion.identity).Initialize(-1);
+        }
+        else
+        {
+            Instantiate(enemyBehaviour, RightSpawnPoint.transform.position, Quaternion.identity).Initialize(1);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
-        
+        Timer -= Time.deltaTime;
+
+        if(Timer <= 0 )
+        {
+            Timer = Random.Range(1, 5);
+            SpawnEnemy();
+        }
     }
 }

@@ -16,4 +16,15 @@ public class AttackFireball : MonoBehaviour
     {
         transform.position += (Vector3.left * direction) * speed * Time.deltaTime;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision);
+        var enemy = collision.gameObject.GetComponent<EnemyBehaviour>();
+        if(enemy != null)
+        {
+            Destroy(enemy.gameObject);
+            Destroy(gameObject);
+        }
+    }
 }
