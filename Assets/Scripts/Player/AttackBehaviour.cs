@@ -11,7 +11,7 @@ public class AttackBehaviour
     AttackFireball fireball;
     AttackWave wave;
 
-    public delegate IAttack Shoot(IAttack projectile, Vector3 position, Quaternion rotation);
+    public delegate IAttack Shoot(Vector3 position, Quaternion rotation);
     public event Shoot ShootAttack;
 
     public AttackBehaviour Initialize(Transform leftAttack, Transform rightAttck, Transform topRightAttack, Transform topLeftAttack, AttackFireball fireball, AttackWave wave)
@@ -31,19 +31,19 @@ public class AttackBehaviour
         {
             case ATTACKANGLE.LEFT:
                 Debug.Log("Attack Left");
-                ShootAttack(fireball, LeftAttackPoint.transform.position, LeftAttackPoint.transform.rotation);
+                ShootAttack(LeftAttackPoint.transform.position, LeftAttackPoint.transform.rotation);
                 return;
             case ATTACKANGLE.RIGHT:
                 Debug.Log("Attack Right");
-                ShootAttack(fireball, RightAttackPoint.transform.position, RightAttackPoint.transform.rotation);
+                ShootAttack(RightAttackPoint.transform.position, RightAttackPoint.transform.rotation);
                 return;
             case ATTACKANGLE.TOP:
                 return;
             case ATTACKANGLE.TOPRIGHT:
-                ShootAttack(wave, TopRightAttackPoint.transform.position, TopRightAttackPoint.transform.rotation);
+                ShootAttack(TopRightAttackPoint.transform.position, TopRightAttackPoint.transform.rotation);
                 return;
             case ATTACKANGLE.TOPLEFT:
-                ShootAttack(wave, TopLeftAttackPoint.transform.position, TopLeftAttackPoint.transform.rotation);
+                ShootAttack(TopLeftAttackPoint.transform.position, TopLeftAttackPoint.transform.rotation);
                 return;
         }
     }
