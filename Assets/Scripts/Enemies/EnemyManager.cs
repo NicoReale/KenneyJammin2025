@@ -21,52 +21,54 @@ public class EnemyManager : MonoBehaviour
 
     List<EnemyBehaviour> waveTwoEnemies;
     List<int> waveTwoAmounts;
-
-    List<List<EnemyBehaviour>> waveEnemies;
+    List<EnemyBehaviour> waveEnemies;
     int currentWave = 0;
 
     private void Start()
     {
-        Initialize();
 
+        Initialize();
+        if(GameManager.Instance.currentLevel == 1)
+        {
+            GetLevelWaves(2,
+            new List<List<int>> { EntityData.waveOneLevelOne.amount, EntityData.waveTwoLevelOne.amount });
+        }
+        if (GameManager.Instance.currentLevel == 2)
+        {
+            GetLevelWaves(2,
+            new List<List<int>> { EntityData.waveOneLevelTwo.amount, EntityData.waveTwoLevelTwo.amount });
+        }
 
     }
     private void Initialize()
     {
         spawner = new EnemySpawner();
-        waveEnemies = new List<List<EnemyBehaviour>>();
-        waveOneEnemies = new List<EnemyBehaviour> { enemyPrefabs[0] };
-        waveOneAmounts = new List<int> { 5 };
-
-        waveTwoEnemies = new List<EnemyBehaviour> { enemyPrefabs[0], enemyPrefabs[1] };
-        waveTwoAmounts = new List<int> { 10, 5 };
-
-        spawner.DefineWaves(waveOneEnemies, waveOneAmounts, 0);
-        spawner.DefineWaves(waveTwoEnemies, waveTwoAmounts, 1);
-        waveEnemies.Add(waveOneEnemies);
-        waveEnemies.Add(waveTwoEnemies);
+        waveEnemies = new List<EnemyBehaviour> { enemyPrefabs[0], enemyPrefabs[1] }; // or however many enemies your level uses
     }
-    public List<EnemyBehaviour> GetNextWave(int wave)
+
+    public void GetLevelWaves(int waveAmount, List<List<int>> amountToSpawnPerWave)
     {
-        if (wave < 0 || wave >= waveEnemies.Count) { return null; }
-        return waveEnemies[wave];
+        for (int i = 0; i < waveAmount; i++)
+        {
+            spawner.DefineWaves(waveEnemies, amountToSpawnPerWave[i].ToList(), i);
+        }
     }
+
 
     public void SpawnEnemy()
     {
-        if(GetNextWave(currentWave) == null)
+        if(currentWave > waveEnemies.Count - 1)
         {
-            Debug.Log("Level ended");
+            GameManager.Instance.ChangeScene(2);
             return;
         }
-        var enemy = spawner.SpawnEnemies(GetNextWave(currentWave), currentWave);
-
+        var enemy = spawner.SpawnEnemies(waveEnemies, currentWave);
         if (enemy == null)
         {
             currentWave++;
             return;
         }
-        if(enemy.GetComponent<EnemyMelee>() != null)
+        if (enemy.GetComponent<EnemyMelee>() != null)
         {
             var val = UnityEngine.Random.value;
             if (val >= 0.51f)
@@ -110,14 +112,21 @@ public class EnemySpawner
 {
     List<Dictionary<EnemyBehaviour, int>> enemySpawnAmount = new List<Dictionary<EnemyBehaviour, int>>();
 
-    public void DefineWaves(List<EnemyBehaviour> enemiesToSpawn, List<int> spawnAmount, int Wave)
+    public void DefineWaves(List<EnemyBehaviour> enemiesToSpawn, List<int> spawnAmount, int wave)
     {
-        enemySpawnAmount.Add(new Dictionary<EnemyBehaviour, int>());
-        for (int i = 0; i < enemiesToSpawn.Count; i++)
+        while (enemySpawnAmount.Count <= wave)
         {
-            enemySpawnAmount[Wave].Add(enemiesToSpawn[i], spawnAmount[i]);
+            enemySpawnAmount.Add(new Dictionary<EnemyBehaviour, int>());
         }
 
+        // Now safe to access by index
+        for (int i = 0; i < spawnAmount.Count; i++)
+        {
+            if (enemiesToSpawn[i] == null)
+                break;
+
+            enemySpawnAmount[wave][enemiesToSpawn[i]] = spawnAmount[i];
+        }
     }
 
     public EnemyBehaviour SpawnEnemies(List<EnemyBehaviour> enemiesToSpawn, int wave)

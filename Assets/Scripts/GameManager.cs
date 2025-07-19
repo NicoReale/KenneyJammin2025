@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public PlayerBehaviour player;
 
+    public int currentLevel => SceneManager.GetActiveScene().buildIndex;
+
     private void Awake()
     {
         if (Instance == null)
@@ -31,5 +33,10 @@ public class GameManager : MonoBehaviour
     public void ChangeScene(int sceneindex)
     {
         SceneManager.LoadScene(sceneindex);
+    }
+
+    public void SetLevelWaves()
+    {
+
     }
 }

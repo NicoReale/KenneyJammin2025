@@ -25,9 +25,10 @@ public class BasicEnemy
     public float speed;
 }
 
-public class Waves
+public class Wave
 {
-    //public
+    public int waves;
+    public List<int> amount;
 }
 
 public class EntityData
@@ -62,6 +63,32 @@ public class EntityData
     {
         health = 20,
         speed = 3f
+    };
+    public static Wave waveOneLevelOne = new Wave
+    {
+        waves = 1,
+        amount = new List<int> { 1 }
+    };
+    public static Wave waveTwoLevelOne = new Wave
+    {
+        waves = 1,
+        amount = new List<int> { 1, 1 }
+    };
+    public static Wave waveThreeLevelOne = new Wave
+    {
+        waves = 1,
+        amount = new List<int> { 10, 20 }
+    };
+
+    public static Wave waveOneLevelTwo = new Wave
+    {
+        waves = 1,
+        amount = new List<int> { 7, 4 }
+    };
+    public static Wave waveTwoLevelTwo = new Wave
+    {
+        waves = 1,
+        amount = new List<int> { 15, 15 }
     };
 
 }
