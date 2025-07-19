@@ -6,14 +6,20 @@ public class AttackFireball : PlayerAttack
 {
     float speed;
 
-    void Update()
+    public override void Update()
     {
-        transform.position += transform.right * speed * Time.deltaTime;
+        base.Update();
+
+        if (gameObject.activeInHierarchy)
+        {
+            transform.position += transform.right * speed * Time.deltaTime;
+        }
     }
 
 
     public override void Initialize()
     {
+        base.Initialize();
         speed = 4f;
     }
 

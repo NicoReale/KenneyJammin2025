@@ -8,6 +8,7 @@ public class AttackWave : PlayerAttack
 
     public override void Initialize()
     {
+        base.Initialize();
         speed = 5;
     }
 
