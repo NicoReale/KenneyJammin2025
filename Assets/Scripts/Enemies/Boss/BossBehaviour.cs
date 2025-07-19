@@ -10,8 +10,13 @@ public class BossBehaviour : MonoBehaviour
     public GameObject ProyectilePrefab;
     public Transform[] floorTargets;
     public float spawnHeight = 10f;
-    public float timeBetweenProyectiles = 1f; 
+    public float timeBetweenProyectiles = 1f;
     public int ProyectilesPerAttack = 5;
+
+    [Header("teletransportacion")]
+    public Transform[] puntosTeleport;
+    private int ultimoTP = -1; 
+
 
     private enum BossAction
     {
@@ -49,7 +54,7 @@ public class BossBehaviour : MonoBehaviour
                     Disparos();
                     break;
                 case BossAction.Charge:
-                    Teleport();
+                    StartCoroutine(teleport());
                     break;
                 case BossAction.Summon:
                     Summon(); //todavia no se un 4to, pueden ser solo 3
@@ -97,15 +102,42 @@ public class BossBehaviour : MonoBehaviour
     {
        
     }
-
-    void Teleport()
+    
+    private IEnumerator teleport()
     {
-      
+        float[] tiempos = { 1.5f, 1f, 0.5f };
+
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(tiempos[i]);
+            Teletransportar();
+        }
     }
 
+    private void Teletransportar()
+    {
+        int nuevoTP = ObtenerNuevoIndice();
+
+        transform.position = puntosTeleport[nuevoTP].position;
+
+        ultimoTP = nuevoTP;
+
+        Debug.Log("Enemigo se teletransportó a: " + nuevoTP);
+    }
+
+    private int ObtenerNuevoIndice()
+    {
+        int indice;
+        do
+        {
+            indice = Random.Range(0, puntosTeleport.Length);
+        } while (indice == ultimoTP); // evitar repetir el último
+
+        return indice;
+    }
     void Summon()
     {
-        
+
     }
 }
 
