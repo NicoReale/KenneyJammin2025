@@ -18,6 +18,11 @@ public class GameData
     public float defaultGameSpeed;
     public float currentGameSpeed;
 }
+public class BasicEnemy
+{
+    public int health;
+    public int speed;
+}
 
 public class EntityData
 {
@@ -34,6 +39,11 @@ public class EntityData
     {
         health = 50,
         name = "name"
+    };
+    public static BasicEnemy EnemyMelee = new BasicEnemy
+    {
+        health = 50,
+        speed = 4
     };
 }
 
