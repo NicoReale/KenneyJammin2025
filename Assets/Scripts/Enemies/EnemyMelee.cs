@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyMelee : EnemyBehaviour
+{
+
+    public override EnemyBehaviour Initialize(ATTACKANGLE side)
+    {
+        if (side == ATTACKANGLE.RIGHT)
+        {
+            sr.flipX = true;
+        }
+
+        return this;
+    }
+
+}

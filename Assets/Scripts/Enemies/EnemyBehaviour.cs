@@ -2,78 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour
+public abstract class EnemyBehaviour : MonoBehaviour
 {
-    float speed;
-    PlayerBehaviour player;
     [SerializeField]
-    Rigidbody2D _rb;
+    protected Rigidbody2D _rb;
     [SerializeField]
-    SpriteRenderer sr;
-    int dir = -1;
+    protected SpriteRenderer sr;
+    [SerializeField]
+    protected PlayerBehaviour player;               // El personaje principal
 
-    public Transform Character;              // El personaje principal
     public float attackRange = 2f;        // Rango para detenerse y atacar
     public float attackInterval = 1.5f;   // Tiempo entre ataques
-    public Transform CharacterCheck;
     public LayerMask CharacterLayer;
     public bool stop;
 
     private float attackTimer = 0f;
     private bool playerInRange = false;
-
+    Vector3 playerDir;
 
     private void Start()
     {
-        
-        if (AttackRange())
-        {
-            attackTimer += Time.deltaTime * EntityData.gameData.currentGameSpeed;
-
-
-            if (attackTimer >= attackInterval)
-            {
-                Attack();
-                attackTimer = 0f;
-            }
-        }
-        void Attack()
-        {
-            // Acá va lo que hace el ataque: daño, animación, etc.
-            Debug.Log("Enemigo ataca con su espada");
-        }
+        player = GameManager.Instance.player;    
     }
-    private bool AttackRange()
+    public virtual bool AttackRange()
     {
-        Debug.Log("en rango");
+        Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+        Vector3 circlePosition = transform.position + directionToPlayer * attackRange;
 
-        return Physics2D.OverlapCircle(transform.position + new Vector3(dir, 0 ,0), 0.5f, CharacterLayer);
-        
+        return Physics2D.OverlapCircle(circlePosition, 0.5f, CharacterLayer);
     }
 
-    public EnemyBehaviour Initialize(ATTACKANGLE side)
+    public virtual EnemyBehaviour Initialize(ATTACKANGLE side)
     {
-        player = GameManager.Instance.player;
-
-        if(side == ATTACKANGLE.LEFT)
-        {
-            dir = 1;
-        }
-        else sr.flipX = true;
-
         return this;
+    }
+
+    private void Update()
+    {
+        playerDir = (player.transform.position - transform.position).normalized;
     }
 
     void FixedUpdate()
     {
-        if(!stop)
+        if (!stop)
         {
-            //transform.position += (Vector3.right * dir) * (EntityData.EnemyMelee.speed * EntityData.gameData.currentGameSpeed) * Time.deltaTime;
-            _rb.MovePosition(transform.position + ((Vector3.right * dir) * (EntityData.EnemyMelee.speed * EntityData.gameData.currentGameSpeed)));
+            Vector2 moveDelta = playerDir * EntityData.EnemyBasicFlying.speed * EntityData.gameData.currentGameSpeed * Time.fixedDeltaTime;
+            _rb.MovePosition(_rb.position + moveDelta);
         }
         if (AttackRange())
         {
             stop = true;
         }
     }
+
 }

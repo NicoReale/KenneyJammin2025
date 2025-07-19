@@ -22,13 +22,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.Instance.player = this;
         health = new HealthComponent(EntityData.playerData.health);
         attackBehaviour = new AttackBehaviour().Initialize(LeftAttackPoint,RightAttackPoint,TopRightAttackPoint,TopLeftAttackPoint, fireball, wave);
     }
 
     private void Start()
     {
-        GameManager.Instance.player = this;
     }
 
     public void Attack(ATTACKANGLE side)

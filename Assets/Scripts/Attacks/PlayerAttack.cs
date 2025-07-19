@@ -18,7 +18,7 @@ public class PlayerAttack : MonoBehaviour, IAttack
     public GameObject Self() => gameObject;
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         var enemy = collision.gameObject.GetComponent<EnemyBehaviour>();
 
@@ -28,7 +28,6 @@ public class PlayerAttack : MonoBehaviour, IAttack
             Despawn();
         }
     }
-
     public virtual void Update()
     { 
         currentTTL -= Time.deltaTime;

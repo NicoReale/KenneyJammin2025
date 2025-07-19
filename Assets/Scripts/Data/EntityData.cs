@@ -43,7 +43,13 @@ public class EntityData
     public static BasicEnemy EnemyMelee = new BasicEnemy
     {
         health = 50,
-        speed = 0.2f
+        speed = 2f
     };
+    public static BasicEnemy EnemyBasicFlying = new BasicEnemy
+    {
+        health = 20,
+        speed = 3f
+    };
+
 }
 

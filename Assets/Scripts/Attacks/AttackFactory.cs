@@ -7,7 +7,7 @@ public class AttackFactory<T> where T : PlayerAttack, IAttack
 {
     public AttackPool<T> _pool;
 
-    public AttackFactory<T> Initialize(Func<T> factoryMethod, int initialStock = 10)
+    public AttackFactory<T> Initialize(Func<T> factoryMethod, int initialStock = 30)
     {
         _pool = new AttackPool<T>(factoryMethod, TurnOnAttack, TurnOffAttack, initialStock, false);
         return this;
