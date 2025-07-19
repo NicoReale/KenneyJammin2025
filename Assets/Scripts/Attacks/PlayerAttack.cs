@@ -1,13 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour, IAttack
 {
-    public float ttl = 10;
-
+    public float ttl = 5;
+    public delegate void despawn<T>(T obj);
+    public event Action<PlayerAttack> OnDespawned;
+    protected float currentTTL;
     public virtual void Initialize()
     {
+        currentTTL = ttl;
         gameObject.SetActive(true);
     }
 
@@ -21,17 +25,28 @@ public class PlayerAttack : MonoBehaviour, IAttack
         if (enemy != null)
         {
             Destroy(enemy.gameObject);
-            gameObject.SetActive(false);
+            Despawn();
         }
     }
 
-    private void Update()
-    {
-        ttl -= Time.deltaTime;
-        if(ttl < 0 )
+    public virtual void Update()
+    { 
+        currentTTL -= Time.deltaTime;
+        if (currentTTL <= 0)
         {
-            gameObject.SetActive(false);
-            ttl = 10;
+            Despawn();
         }
+    }
+
+    protected virtual void Despawn()
+    {
+        gameObject.SetActive(false);
+        OnDespawned?.Invoke(this);
+    }
+
+    public virtual void ResetAttack()
+    {
+        currentTTL = ttl;
+        // Reset any other properties specific to the attack type
     }
 }

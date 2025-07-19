@@ -2,9 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
-public class AttackPool<T> : MonoBehaviour where T : PlayerAttack
+public class AttackPool<T>
 {
     List<T> _currentStock;
     Func<T> _factoryMethod; //Create
@@ -13,9 +12,9 @@ public class AttackPool<T> : MonoBehaviour where T : PlayerAttack
     Action<T> _turnOffCallback;
 
 
-    public AttackPool(Func<T> factroyMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, int initialStock = 0, bool isDynamic = true)
+    public AttackPool(Func<T> factoryMethod, Action<T> turnOnCallback, Action<T> turnOffCallback, int initialStock = 0, bool isDynamic = true)
     {
-        _factoryMethod = factroyMethod;
+        _factoryMethod = factoryMethod;
         _isDynamic = isDynamic;
 
         _turnOnCallback = turnOnCallback;
@@ -28,5 +27,27 @@ public class AttackPool<T> : MonoBehaviour where T : PlayerAttack
             _turnOffCallback(o);
             _currentStock.Add(o);
         }
+    }
+
+    public T GetObject()
+    {
+        var result = default(T);
+        if( _currentStock.Count > 0 )
+        {
+            result = _currentStock[0];
+            _currentStock.RemoveAt(0);
+        }
+        else if (_isDynamic )
+        {
+            result = _factoryMethod();
+        }
+        _turnOnCallback(result);
+        return result;
+    }
+
+    public void ReturnObject(T obj)
+    {
+        _turnOffCallback(obj);
+        _currentStock.Add(obj);
     }
 }

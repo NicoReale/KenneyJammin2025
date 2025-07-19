@@ -4,20 +4,35 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    ATTACKANGLE direction;
-    int dir = -1;
     float speed = 4f;
-    public EnemyBehaviour Initialize(ATTACKANGLE direccion)
+    PlayerBehaviour player;
+    [SerializeField]
+    SpriteRenderer sr;
+    int dir = -1;
+
+    private void Start()
     {
-        if(direccion == ATTACKANGLE.RIGHT)
+      
+    }
+
+    public EnemyBehaviour Initialize(ATTACKANGLE side)
+    {
+        player = GameManager.Instance.player;
+
+        if(side == ATTACKANGLE.LEFT)
         {
             dir = 1;
         }
+        else sr.flipX = true;
+
         return this;
     }
 
     void Update()
     {
-        transform.position += (Vector3.left * dir) * speed * Time.deltaTime;
+        if(Vector2.Distance(transform.position, player.transform.position) > 1)
+        {
+            transform.position += (Vector3.right * dir) * speed * Time.deltaTime;
+        }
     }
 }

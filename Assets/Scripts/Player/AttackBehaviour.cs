@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using UnityEngine;
+using UnityEngine.Pool;
 
 [Serializable]
 public class AttackBehaviour
@@ -11,17 +13,28 @@ public class AttackBehaviour
     AttackFireball fireball;
     AttackWave wave;
 
-    public delegate IAttack Shoot(Vector3 position, Quaternion rotation);
-    public event Shoot ShootAttack;
+    AttackFactory<AttackFireball> fireballFactory;
+    AttackFactory<AttackWave> waveFactory;
+
+    public delegate IAttack Shoot(ATTACKANGLE side, Vector3 position, Quaternion rotation);
+    public event Shoot ShootFireball;
+    public event Shoot ShootWave;
+
 
     public AttackBehaviour Initialize(Transform leftAttack, Transform rightAttck, Transform topRightAttack, Transform topLeftAttack, AttackFireball fireball, AttackWave wave)
     {
+
+
         LeftAttackPoint = leftAttack;
         RightAttackPoint = rightAttck;
         TopRightAttackPoint = topRightAttack;
         TopLeftAttackPoint = topLeftAttack;
         this.fireball = fireball;
         this.wave = wave;
+        fireballFactory = new AttackFactory<AttackFireball>().Initialize(FireballFactoryMethod);
+        waveFactory = new AttackFactory<AttackWave>().Initialize(WaveFactoryMethod);
+        ShootFireball += fireballFactory.GetAttack;
+        ShootWave += waveFactory.GetAttack;
         return this;
     }
 
@@ -31,20 +44,30 @@ public class AttackBehaviour
         {
             case ATTACKANGLE.LEFT:
                 Debug.Log("Attack Left");
-                ShootAttack(LeftAttackPoint.transform.position, LeftAttackPoint.transform.rotation);
+                ShootFireball(side, LeftAttackPoint.transform.position, LeftAttackPoint.transform.rotation);
                 return;
             case ATTACKANGLE.RIGHT:
                 Debug.Log("Attack Right");
-                ShootAttack(RightAttackPoint.transform.position, RightAttackPoint.transform.rotation);
+                ShootFireball(side, RightAttackPoint.transform.position, RightAttackPoint.transform.rotation);
                 return;
             case ATTACKANGLE.TOP:
-                return;
+                throw new Exception("Not Implemented");
             case ATTACKANGLE.TOPRIGHT:
-                ShootAttack(TopRightAttackPoint.transform.position, TopRightAttackPoint.transform.rotation);
+                ShootWave(side, TopRightAttackPoint.transform.position, TopRightAttackPoint.transform.rotation);
                 return;
             case ATTACKANGLE.TOPLEFT:
-                ShootAttack(TopLeftAttackPoint.transform.position, TopLeftAttackPoint.transform.rotation);
+                ShootWave(side, TopLeftAttackPoint.transform.position, TopLeftAttackPoint.transform.rotation);
                 return;
         }
+    }
+
+    AttackFireball FireballFactoryMethod()
+    {
+        return GameObject.Instantiate(fireball);
+    }
+
+    AttackWave WaveFactoryMethod()
+    {
+        return GameObject.Instantiate(wave);
     }
 }
