@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4737769293763450336}
   - component: {fileID: -4776013935966627418}
   - component: {fileID: 6197299432620136522}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemyBasic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Constraints: 6
 --- !u!114 &6197299432620136522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2832771701496430654}
   - component: {fileID: 2765290772933124270}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

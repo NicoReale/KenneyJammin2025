@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class AttackWave : PlayerAttack
 {
-    int speed;
+    float speed;
 
     public override void Initialize()
     {
         base.Initialize();
-        speed = 5;
+        damage = EntityData.waveAttackData.damage;
+        speed = EntityData.waveAttackData.speed * EntityData.gameData.currentGameSpeed;
     }
 
 
-    void Update()
+    public override void Update()
     {
         base.Update();
         transform.position += transform.up * speed * Time.deltaTime;

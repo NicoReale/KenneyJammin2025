@@ -260,6 +260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 185462973243581425}
   - component: {fileID: 5916255913701787216}
+  - component: {fileID: -1905874989494717368}
   m_Layer: 0
   m_Name: Wave
   m_TagString: Untagged
@@ -298,6 +299,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2f3f4ca5c85cc42b28e3c1075079eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ttl: 10
+--- !u!58 &-1905874989494717368
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993783119189344628}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1
 --- !u!1 &7309967428074637332
 GameObject:
   m_ObjectHideFlags: 0

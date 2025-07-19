@@ -7,6 +7,7 @@ public class EnemyMelee : EnemyBehaviour
 
     public override EnemyBehaviour Initialize(ATTACKANGLE side)
     {
+        health.SetHealth(EntityData.EnemyMelee.health);
         if (side == ATTACKANGLE.RIGHT)
         {
             sr.flipX = true;

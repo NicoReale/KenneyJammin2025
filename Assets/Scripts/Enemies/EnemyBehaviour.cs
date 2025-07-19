@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,9 +21,24 @@ public abstract class EnemyBehaviour : MonoBehaviour
     private bool playerInRange = false;
     Vector3 playerDir;
 
+    protected HealthComponent health;
+
+    protected Action AttackForm;
+
+    private void Awake()
+    {
+        health = new HealthComponent();
+        health.DeadCallback = Died;
+    }
+
     private void Start()
     {
-        player = GameManager.Instance.player;    
+        player = GameManager.Instance.player;
+    }
+
+    public void Died()
+    {
+        Destroy(gameObject);
     }
     public virtual bool AttackRange()
     {
@@ -40,6 +56,11 @@ public abstract class EnemyBehaviour : MonoBehaviour
     private void Update()
     {
         playerDir = (player.transform.position - transform.position).normalized;
+
+        if(stop)
+        {
+            AttackForm?.Invoke();
+        }
     }
 
     void FixedUpdate()
@@ -53,6 +74,11 @@ public abstract class EnemyBehaviour : MonoBehaviour
         {
             stop = true;
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health.TakeDamage(EntityData.fireballData.damage);
     }
 
 }

@@ -9,6 +9,8 @@ public class PlayerAttack : MonoBehaviour, IAttack
     public delegate void despawn<T>(T obj);
     public event Action<PlayerAttack> OnDespawned;
     protected float currentTTL;
+
+    protected int damage;
     public virtual void Initialize()
     {
         currentTTL = ttl;
@@ -24,7 +26,7 @@ public class PlayerAttack : MonoBehaviour, IAttack
 
         if (enemy != null)
         {
-            Destroy(enemy.gameObject);
+            enemy.TakeDamage(damage);
             Despawn();
         }
     }

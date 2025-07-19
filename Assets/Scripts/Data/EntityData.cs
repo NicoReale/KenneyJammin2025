@@ -8,8 +8,9 @@ public class PlayerData
     public int health;
     public string name;
 }
-public class Fireball
+public class BasicAttack
 {
+    public int damage;
     public int speed;
 }
 
@@ -24,6 +25,11 @@ public class BasicEnemy
     public float speed;
 }
 
+public class Waves
+{
+    //public
+}
+
 public class EntityData
 {
     public static GameData gameData = new GameData 
@@ -31,10 +37,17 @@ public class EntityData
         defaultGameSpeed = 1f,
         currentGameSpeed = 1
     };
-    public static Fireball fireballData = new Fireball
+    public static BasicAttack fireballData = new BasicAttack
     {
-        speed = 4
+        speed = 4,
+        damage = 50
     };
+    public static BasicAttack waveAttackData = new BasicAttack
+    {
+        speed = 7,
+        damage = 20
+    };
+
     public static PlayerData playerData = new PlayerData
     {
         health = 50,
