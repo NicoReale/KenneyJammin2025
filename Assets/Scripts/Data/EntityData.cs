@@ -67,12 +67,12 @@ public class EntityData
     public static Wave waveOneLevelOne = new Wave
     {
         waves = 1,
-        amount = new List<int> { 1 }
+        amount = new List<int> { 4 , 0 }
     };
     public static Wave waveTwoLevelOne = new Wave
     {
         waves = 1,
-        amount = new List<int> { 1, 1 }
+        amount = new List<int> { 8, 5 }
     };
     public static Wave waveThreeLevelOne = new Wave
     {

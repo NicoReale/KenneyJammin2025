@@ -13,14 +13,6 @@ public enum ATTACKANGLE
     TOPLEFT
 }
 
-public class UIAttackButton : MonoBehaviour, IPointerClickHandler
+public class UIAttackButton : MonoBehaviour
 {
-    [SerializeField]
-    PlayerBehaviour player;
-    [SerializeField]
-    ATTACKANGLE side;
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        player.Attack(side);
-    }
 }

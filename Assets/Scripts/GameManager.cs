@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public PlayerBehaviour player;
 
+    public EnemyTarget enemyTarget;
+
     public int currentLevel => SceneManager.GetActiveScene().buildIndex;
 
     private void Awake()

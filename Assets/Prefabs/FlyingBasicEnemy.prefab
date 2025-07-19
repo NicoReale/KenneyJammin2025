@@ -129,12 +129,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 6004362552566102698}
   sr: {fileID: 7594128437895411978}
-  player: {fileID: 0}
+  enemyTarget: {fileID: 0}
   attackRange: 2
   attackInterval: 1.5
   CharacterLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1024
   stop: 0
 --- !u!50 &6004362552566102698
 Rigidbody2D:

@@ -32,6 +32,30 @@ public class PlayerBehaviour : MonoBehaviour
     {
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            attackBehaviour.Attack(ATTACKANGLE.LEFT);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            attackBehaviour.Attack(ATTACKANGLE.RIGHT);
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            attackBehaviour.Attack(ATTACKANGLE.TOPLEFT);
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            attackBehaviour.Attack(ATTACKANGLE.TOPRIGHT);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            attackBehaviour.Attack(ATTACKANGLE.TOP);
+        }
+    }
+
     public void Attack(ATTACKANGLE side)
     {
         attackBehaviour.Attack(side);

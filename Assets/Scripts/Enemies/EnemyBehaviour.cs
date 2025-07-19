@@ -10,7 +10,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
     [SerializeField]
     protected SpriteRenderer sr;
     [SerializeField]
-    protected PlayerBehaviour player;               // El personaje principal
+    protected EnemyTarget enemyTarget;               // El personaje principal
 
     public float attackRange = 2f;        // Rango para detenerse y atacar
     public float attackInterval = 1.5f;   // Tiempo entre ataques
@@ -33,7 +33,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
 
     private void Start()
     {
-        player = GameManager.Instance.player;
+        enemyTarget = GameManager.Instance.enemyTarget;
     }
 
     public void Died()
@@ -42,7 +42,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
     }
     public virtual bool AttackRange()
     {
-        Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+        Vector3 directionToPlayer = (enemyTarget.transform.position - transform.position).normalized;
         Vector3 circlePosition = transform.position + directionToPlayer * attackRange;
 
         return Physics2D.OverlapCircle(circlePosition, 0.5f, CharacterLayer);
@@ -55,7 +55,7 @@ public abstract class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
-        playerDir = (player.transform.position - transform.position).normalized;
+        playerDir = (enemyTarget.transform.position - transform.position).normalized;
 
         if(stop)
         {
