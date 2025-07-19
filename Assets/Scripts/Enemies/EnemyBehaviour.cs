@@ -7,6 +7,8 @@ public class EnemyBehaviour : MonoBehaviour
     float speed;
     PlayerBehaviour player;
     [SerializeField]
+    Rigidbody2D _rb;
+    [SerializeField]
     SpriteRenderer sr;
     int dir = -1;
 
@@ -28,11 +30,12 @@ public class EnemyBehaviour : MonoBehaviour
         return this;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(Vector2.Distance(transform.position, player.transform.position) > 1)
         {
-            transform.position += (Vector3.right * dir) * (EntityData.EnemyMelee.speed * EntityData.gameData.currentGameSpeed) * Time.deltaTime;
+            //transform.position += (Vector3.right * dir) * (EntityData.EnemyMelee.speed * EntityData.gameData.currentGameSpeed) * Time.deltaTime;
+            _rb.MovePosition(transform.position + ((Vector3.right * dir) * (EntityData.EnemyMelee.speed * EntityData.gameData.currentGameSpeed)));
         }
     }
 }

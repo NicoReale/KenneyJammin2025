@@ -21,7 +21,7 @@ public class GameData
 public class BasicEnemy
 {
     public int health;
-    public int speed;
+    public float speed;
 }
 
 public class EntityData
@@ -43,7 +43,7 @@ public class EntityData
     public static BasicEnemy EnemyMelee = new BasicEnemy
     {
         health = 50,
-        speed = 4
+        speed = 0.2f
     };
 }
 
