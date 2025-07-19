@@ -126,8 +126,8 @@ TextureImporter:
       name: fondo_2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 1920
+        y: 1080
         width: 1920
         height: 1080
       alignment: 0
@@ -139,6 +139,48 @@ TextureImporter:
       bones: []
       spriteID: 58107cdf26c09d746acc7ee49fb651f0
       internalID: 1120505364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fondo_2_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8eef2b24356595747bd7bedaaf363cee
+      internalID: 299700786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fondo_2_2
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 0
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6ba891b47dd6d74dbb5333e69727a26
+      internalID: -102576627
       vertices: []
       indices: 
       edges: []
@@ -155,6 +197,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       fondo_2_0: 1120505364
+      fondo_2_1: 299700786
+      fondo_2_2: -102576627
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
