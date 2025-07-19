@@ -29,7 +29,7 @@ public class MovementBehaviour : MonoBehaviour
     {
         if (!isTeleporting)
         {
-            
+
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 StartCoroutine(TeleportTo(leftTarget.position));
@@ -38,11 +38,11 @@ public class MovementBehaviour : MonoBehaviour
             {
                 StartCoroutine(TeleportTo(rightTarget.position));
             }
-
-            
+        }
+        {             
             if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
             {
-                transform.position = new Vector3(0,transform.position.y + jumpForce, 0);                              
+                transform.position = new Vector3(transform.position.x,transform.position.y + jumpForce, transform.position.z);                              
             }
         }
     }
