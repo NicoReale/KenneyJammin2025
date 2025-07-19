@@ -20,7 +20,7 @@ public class AttackFireball : PlayerAttack
     public override void Initialize()
     {
         base.Initialize();
-        speed = 4f;
+        speed = EntityData.fireballData.speed * EntityData.gameData.currentGameSpeed;
     }
 
 

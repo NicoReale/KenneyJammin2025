@@ -18,10 +18,11 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     AttackWave wave;
 
+
+
     private void Awake()
     {
-
-        health = new HealthComponent(100);
+        health = new HealthComponent(EntityData.playerData.health);
         attackBehaviour = new AttackBehaviour().Initialize(LeftAttackPoint,RightAttackPoint,TopRightAttackPoint,TopLeftAttackPoint, fireball, wave);
     }
 

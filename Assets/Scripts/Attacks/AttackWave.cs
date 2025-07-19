@@ -15,6 +15,7 @@ public class AttackWave : PlayerAttack
 
     void Update()
     {
+        base.Update();
         transform.position += transform.up * speed * Time.deltaTime;
     }
 }
