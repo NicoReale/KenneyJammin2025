@@ -6,12 +6,13 @@ using UnityEngine;
 public class HealthComponent
 {
 
-    int health;
+    float health;
     public Action DeadCallback;
 
     public void TakeDamage(int damage)
     {
         health -= damage;
+        health = Mathf.Lerp(health, health - damage, Time.deltaTime);
         Debug.Log($"Damage:{damage} | HP: {health}");
         if(health <= 0)
         {
@@ -19,7 +20,8 @@ public class HealthComponent
         }
     }
 
-    public void SetHealth(int health)
+
+    public void SetHealth(float health)
     {
         if(this.health >= health)
         {

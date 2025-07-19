@@ -27,6 +27,12 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
+        Initialize();
+
+
+    }
+    private void Initialize()
+    {
         spawner = new EnemySpawner();
         waveEnemies = new List<List<EnemyBehaviour>>();
         waveOneEnemies = new List<EnemyBehaviour> { enemyPrefabs[0] };
@@ -39,18 +45,18 @@ public class EnemyManager : MonoBehaviour
         spawner.DefineWaves(waveTwoEnemies, waveTwoAmounts, 1);
         waveEnemies.Add(waveOneEnemies);
         waveEnemies.Add(waveTwoEnemies);
-
-
     }
     public List<EnemyBehaviour> GetNextWave(int wave)
     {
-        return waveEnemies[wave] !=null ? waveEnemies[wave] : null;
+        if (wave < 0 || wave >= waveEnemies.Count) { return null; }
+        return waveEnemies[wave];
     }
 
     public void SpawnEnemy()
     {
         if(GetNextWave(currentWave) == null)
         {
+            Debug.Log("Level ended");
             return;
         }
         var enemy = spawner.SpawnEnemies(GetNextWave(currentWave), currentWave);

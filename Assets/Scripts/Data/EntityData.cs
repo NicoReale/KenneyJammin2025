@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerData
 {
-    public int health;
+    public float health;
     public string name;
 }
 public class BasicAttack
@@ -21,7 +21,7 @@ public class GameData
 }
 public class BasicEnemy
 {
-    public int health;
+    public float health;
     public float speed;
 }
 
