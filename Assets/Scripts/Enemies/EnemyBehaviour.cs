@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    float speed = 4f;
+    float speed;
     PlayerBehaviour player;
     [SerializeField]
     SpriteRenderer sr;
@@ -32,7 +32,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if(Vector2.Distance(transform.position, player.transform.position) > 1)
         {
-            transform.position += (Vector3.right * dir) * speed * Time.deltaTime;
+            transform.position += (Vector3.right * dir) * (EntityData.EnemyMelee.speed * EntityData.gameData.currentGameSpeed) * Time.deltaTime;
         }
     }
 }
