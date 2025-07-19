@@ -40,7 +40,7 @@ public class MovementBehaviour : MonoBehaviour
             }
         }
         {             
-            if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+            if (Input.GetKeyDown(KeyCode.UpArrow) && IsGrounded())
             {
                 transform.position = new Vector3(transform.position.x,transform.position.y + jumpForce, transform.position.z);                              
             }
