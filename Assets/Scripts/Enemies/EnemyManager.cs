@@ -69,7 +69,6 @@ public class EnemyManager : MonoBehaviour
 
     public void RemoveFromPool(EnemyBehaviour enemyToRemove)
     {
-        Debug.Log("Remove from pool");
         currentEnemies.Remove(enemyToRemove);
     }
 

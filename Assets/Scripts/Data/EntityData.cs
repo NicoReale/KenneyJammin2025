@@ -72,7 +72,7 @@ public class EntityData
     };
     public static Wave LevelOneWaveOne = new Wave
     {
-        amount = new List<int> { 4 , 0 }
+        amount = new List<int> { 0 , 6 }
     };
     public static Wave LevelOneWaveTwo = new Wave
     {

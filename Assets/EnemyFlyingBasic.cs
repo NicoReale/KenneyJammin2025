@@ -11,22 +11,20 @@ public class EnemyFlyingBasic : EnemyBehaviour
     public override void Attack(float time)
     {
         timer -= time;
-        if (timer <= 0)
+        if (timer <= 0 && timer >= -0.1f)
         {
             isSearching = false;
             stop = false;
             animator.SetTrigger("Attack");
-            if (Vector3.Distance(transform.position, enemyTarget.transform.position) <= 0.1f)
-            {
-                stop = true;
-                EndAttack();
-            }
+        }
+        if (Vector3.Distance(transform.position, enemyTarget.transform.position) <= 0.2f)
+        {
+            animator.SetBool("Explode", true);
         }
 
     }
     public void EndAttack()
-    {
-        animator.SetBool("Explode", true);
+    {    
         AttackForm -= Attack;
         DamagePlayer();
         TakeDamage(100);
