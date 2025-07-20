@@ -82,7 +82,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &6383211413055787676
@@ -97,3 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58853e24155b1304e8d0da4d7260495a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
+  duracion: 0.5
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 512

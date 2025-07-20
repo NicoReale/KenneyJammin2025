@@ -120,7 +120,7 @@ MonoBehaviour:
   leftTarget: {fileID: 0}
   rightTarget: {fileID: 0}
   teleportDuration: 0.75
-  jumpForce: 1.5
+  jumpForce: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
