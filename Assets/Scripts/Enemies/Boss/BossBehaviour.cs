@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BossBehaviour : MonoBehaviour
 {
-    public float behaviorDuration = 3f;
+    public float behaviorDuration = 4f;
 
     [Header("Lluvia de proyectiles")]
-    public GameObject ProyectilePrefab;
+    public GameObject ProjectilePrefab;
     public Transform[] floorTargets;
     public float spawnHeight = 10f;
     public float timeBetweenProyectiles = 1f;
@@ -15,7 +15,14 @@ public class BossBehaviour : MonoBehaviour
 
     [Header("teletransportacion")]
     public Transform[] puntosTeleport;
-    private int ultimoTP = -1; 
+    private int ultimoTP = -1;
+
+    [Header("Proyectiles horizontales")]
+    public GameObject projectilePrefab2;
+    public Transform[] projectileTargets; 
+    public float projectileSpeed = 5f;
+    public float timeBetweenShots = 0.5f;
+public int shotsPerBurst = 6;
 
 
     private enum BossAction
@@ -51,13 +58,10 @@ public class BossBehaviour : MonoBehaviour
                     yield return StartCoroutine(LluviaProyectiles());
                     break;
                 case BossAction.Jump:
-                    Disparos();
+                    ShootProjectileBurst();
                     break;
                 case BossAction.Charge:
-                    StartCoroutine(teleport());
-                    break;
-                case BossAction.Summon:
-                    Summon(); //todavia no se un 4to, pueden ser solo 3
+                    yield return StartCoroutine(teleport());
                     break;
             }
 
@@ -87,7 +91,7 @@ public class BossBehaviour : MonoBehaviour
             target.position.z
         );
 
-        Instantiate(ProyectilePrefab, spawnPosition, Quaternion.identity);
+        Instantiate(ProjectilePrefab, spawnPosition, Quaternion.identity);
     }
     private IEnumerator LluviaProyectiles()
     {
@@ -97,12 +101,28 @@ public class BossBehaviour : MonoBehaviour
             yield return new WaitForSeconds(timeBetweenProyectiles);
         }
     }
-
-    void Disparos()
+    private IEnumerator ShootProjectileBurst()
     {
-       
+        for (int i = 0; i < shotsPerBurst; i++)
+        {
+            HorizontalProjectiles();
+            yield return new WaitForSeconds(timeBetweenShots);
+        }
     }
-    
+    void HorizontalProjectiles()
+    {
+        // Elegir uno de los dos puntos
+        int index = Random.Range(0, projectileTargets.Length);
+        Transform target = projectileTargets[index];
+
+        // Crear el proyectil en la posición del jefe
+        GameObject projectile = Instantiate(projectilePrefab2, transform.position, Quaternion.identity);
+
+        // Calcular la dirección
+        Vector2 direction = (target.position - transform.position).normalized;
+
+    }
+
     private IEnumerator teleport()
     {
         float[] tiempos = { 1.5f, 1f, 0.5f };
@@ -134,10 +154,6 @@ public class BossBehaviour : MonoBehaviour
         } while (indice == ultimoTP); // evitar repetir el último
 
         return indice;
-    }
-    void Summon()
-    {
-
     }
 }
 
