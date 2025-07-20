@@ -32,8 +32,19 @@ public class EnemyManager : MonoBehaviour
         Initialize();
         if(GameManager.Instance.currentLevel == 1)
         {
-            GetLevelWaves(2,
-            new List<List<int>> { EntityData.waveOneLevelOne.amount, EntityData.waveTwoLevelOne.amount });
+            GetLevelWaves(10,
+            new List<List<int>> { 
+                EntityData.LevelOneWaveOne.amount,
+                EntityData.LevelOneWaveTwo.amount,
+                EntityData.LevelOneWaveThree.amount,
+                EntityData.LevelOneWaveFour.amount,
+                EntityData.LevelOneWaveFive.amount,
+                EntityData.LevelOneWaveSix.amount,
+                EntityData.LevelOneWaveSeven.amount,
+                EntityData.LevelOneWaveEight.amount,
+                EntityData.LevelOneWaveNine.amount,
+                EntityData.LevelOneWaveTen.amount
+            });
         }
         if (GameManager.Instance.currentLevel == 2)
         {

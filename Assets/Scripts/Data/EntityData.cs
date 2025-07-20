@@ -30,7 +30,6 @@ public class BasicEnemy
 
 public class Wave
 {
-    public int waves;
     public List<int> amount;
 }
 
@@ -71,30 +70,54 @@ public class EntityData
         damage = 20,
         attackTimer = 4
     };
-    public static Wave waveOneLevelOne = new Wave
+    public static Wave LevelOneWaveOne = new Wave
     {
-        waves = 1,
         amount = new List<int> { 4 , 0 }
     };
-    public static Wave waveTwoLevelOne = new Wave
+    public static Wave LevelOneWaveTwo = new Wave
     {
-        waves = 1,
         amount = new List<int> { 8, 5 }
     };
-    public static Wave waveThreeLevelOne = new Wave
+    public static Wave LevelOneWaveThree = new Wave
     {
-        waves = 1,
-        amount = new List<int> { 10, 20 }
+        amount = new List<int> { 16, 10 }
     };
+    public static Wave LevelOneWaveFour = new Wave
+    {
+        amount = new List<int> { 20, 15 }
+    };
+    public static Wave LevelOneWaveFive = new Wave
+    {
+        amount = new List<int> { 25, 20 }
+    };
+    public static Wave LevelOneWaveSix = new Wave
+    {
+        amount = new List<int> { 30, 20 }
+    };
+    public static Wave LevelOneWaveSeven = new Wave
+    {
+        amount = new List<int> { 40, 25 }
+    };
+    public static Wave LevelOneWaveEight = new Wave
+    {
+        amount = new List<int> { 40, 30 }
+    };
+    public static Wave LevelOneWaveNine = new Wave
+    {
+        amount = new List<int> { 45, 40 }
+    };
+    public static Wave LevelOneWaveTen = new Wave
+    {
+        amount = new List<int> { 50, 50 }
+    };
+
 
     public static Wave waveOneLevelTwo = new Wave
     {
-        waves = 1,
         amount = new List<int> { 7, 4 }
     };
     public static Wave waveTwoLevelTwo = new Wave
     {
-        waves = 1,
         amount = new List<int> { 15, 15 }
     };
 
