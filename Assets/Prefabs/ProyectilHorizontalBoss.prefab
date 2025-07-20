@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9105032266446933678}
   - component: {fileID: 948865446670565444}
+  - component: {fileID: 7444260963668584633}
   m_Layer: 0
   m_Name: ProyectilHorizontalBoss
   m_TagString: Untagged
@@ -84,3 +85,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7444260963668584633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9019815934418969219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6251e0dc11dfe74f966f2b2286af331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5

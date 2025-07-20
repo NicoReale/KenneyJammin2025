@@ -121,8 +121,6 @@ public int shotsPerBurst = 6;
         // Calcular la dirección
         Vector2 direction = (target.position - transform.position).normalized;
 
-        // Asignar la dirección al proyectil
-        projectile.GetComponent<Projectile>().SetDirection(direction);
     }
 
     private IEnumerator teleport()
