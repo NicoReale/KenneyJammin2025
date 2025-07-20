@@ -53,7 +53,7 @@ public class AttackBehaviour
                 ShootFireball(side, RightAttackPoint.transform.position, RightAttackPoint.transform.rotation);
                 return side;
             case ATTACKANGLE.TOP:
-                throw new Exception("Not Implemented");
+                //throw new Exception("Not Implemented");
             case ATTACKANGLE.TOPRIGHT:
                 ShootWave(side, TopRightAttackPoint.transform.position, TopRightAttackPoint.transform.rotation);
                 return side;
