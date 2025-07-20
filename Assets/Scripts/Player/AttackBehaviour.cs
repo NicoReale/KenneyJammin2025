@@ -40,26 +40,27 @@ public class AttackBehaviour
 
 
 
-    public void Attack(ATTACKANGLE side)
+    public ATTACKANGLE Attack(ATTACKANGLE side)
     {
         switch (side)
         {
             case ATTACKANGLE.LEFT:
                 Debug.Log("Attack Left");
                 ShootFireball(side, LeftAttackPoint.transform.position, LeftAttackPoint.transform.rotation);
-                return;
+                return side;
             case ATTACKANGLE.RIGHT:
                 Debug.Log("Attack Right");
                 ShootFireball(side, RightAttackPoint.transform.position, RightAttackPoint.transform.rotation);
-                return;
+                return side;
             case ATTACKANGLE.TOP:
                 throw new Exception("Not Implemented");
             case ATTACKANGLE.TOPRIGHT:
                 ShootWave(side, TopRightAttackPoint.transform.position, TopRightAttackPoint.transform.rotation);
-                return;
+                return side;
             case ATTACKANGLE.TOPLEFT:
                 ShootWave(side, TopLeftAttackPoint.transform.position, TopLeftAttackPoint.transform.rotation);
-                return;
+                return side;
+            default: return side;
         }
     }
 

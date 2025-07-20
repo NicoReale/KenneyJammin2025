@@ -1,12 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMelee : EnemyBehaviour
 {
-
-    public override EnemyBehaviour Initialize(ATTACKANGLE side)
+    float attackTimer = 0;
+    public override void Attack(float time)
     {
+        attackTimer -= time;
+        if (attackTimer < 0)
+        {
+            animator.SetTrigger("Attack");
+            attackTimer = 3;
+        }
+    }
+
+    public override void Died()
+    {
+        OnDied.Invoke(this);
+        AttackForm -= Attack;
+        Destroy(gameObject);
+    }
+
+    public override EnemyBehaviour Initialize(ATTACKANGLE side, Action<EnemyBehaviour> onDied)
+    {
+        base.Initialize(side, onDied);
         health.SetHealth(EntityData.EnemyMelee.health);
         if (side == ATTACKANGLE.RIGHT)
         {
@@ -16,4 +35,5 @@ public class EnemyMelee : EnemyBehaviour
         return this;
     }
 
+    protected override int Damage() => EntityData.EnemyMelee.damage;
 }

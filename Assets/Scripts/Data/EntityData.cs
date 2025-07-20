@@ -23,6 +23,7 @@ public class BasicEnemy
 {
     public float health;
     public float speed;
+    public int damage;
 }
 
 public class Wave
@@ -57,12 +58,14 @@ public class EntityData
     public static BasicEnemy EnemyMelee = new BasicEnemy
     {
         health = 50,
-        speed = 2f
+        speed = 2f,
+        damage = 5
     };
     public static BasicEnemy EnemyBasicFlying = new BasicEnemy
     {
         health = 20,
-        speed = 3f
+        speed = 3f,
+        damage = 20
     };
     public static Wave waveOneLevelOne = new Wave
     {

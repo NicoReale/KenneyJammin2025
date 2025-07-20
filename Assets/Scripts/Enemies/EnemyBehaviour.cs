@@ -17,13 +17,20 @@ public abstract class EnemyBehaviour : MonoBehaviour
     public LayerMask CharacterLayer;
     public bool stop;
 
-    private float attackTimer = 0f;
-    private bool playerInRange = false;
     Vector3 playerDir;
 
     protected HealthComponent health;
 
-    protected Action AttackForm;
+    protected Action<float> AttackForm;
+    protected Action<EnemyBehaviour> OnDied;
+    [SerializeField]
+    protected Animator animator;
+
+    protected bool isSearching = true;
+
+    protected abstract int Damage();
+
+    protected bool isAttacking = false;
 
     private void Awake()
     {
@@ -34,22 +41,27 @@ public abstract class EnemyBehaviour : MonoBehaviour
     private void Start()
     {
         enemyTarget = GameManager.Instance.enemyTarget;
+        AttackForm += Attack;
+        animator.SetBool("Stop", stop);
     }
 
-    public void Died()
-    {
-        Destroy(gameObject);
-    }
+    public abstract void Died();
+    public abstract void Attack(float time);
     public virtual bool AttackRange()
     {
         Vector3 directionToPlayer = (enemyTarget.transform.position - transform.position).normalized;
         Vector3 circlePosition = transform.position + directionToPlayer * attackRange;
 
+        if(!isSearching)
+        {
+            return false;
+        }
         return Physics2D.OverlapCircle(circlePosition, 0.5f, CharacterLayer);
     }
 
-    public virtual EnemyBehaviour Initialize(ATTACKANGLE side)
+    public virtual EnemyBehaviour Initialize(ATTACKANGLE side, Action<EnemyBehaviour> onDied)
     {
+        OnDied += onDied;
         return this;
     }
 
@@ -57,11 +69,12 @@ public abstract class EnemyBehaviour : MonoBehaviour
     {
         playerDir = (enemyTarget.transform.position - transform.position).normalized;
 
-        if(stop)
+        if (isAttacking)
         {
-            AttackForm?.Invoke();
+            AttackForm?.Invoke(Time.deltaTime);
         }
     }
+
 
     void FixedUpdate()
     {
@@ -70,15 +83,22 @@ public abstract class EnemyBehaviour : MonoBehaviour
             Vector2 moveDelta = playerDir * EntityData.EnemyBasicFlying.speed * EntityData.gameData.currentGameSpeed * Time.fixedDeltaTime;
             _rb.MovePosition(_rb.position + moveDelta);
         }
-        if (AttackRange())
+        if (AttackRange() && stop == false)
         {
             stop = true;
+            isAttacking = true;
+            animator.SetBool("Stop", stop);
         }
     }
 
     public void TakeDamage(int damage)
     {
         health.TakeDamage(EntityData.fireballData.damage);
+    }
+
+    public void DamagePlayer()
+    {
+        GameManager.Instance.player.TakeDamage(Damage());
     }
 
 }

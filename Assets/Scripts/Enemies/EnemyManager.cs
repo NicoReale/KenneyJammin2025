@@ -24,6 +24,8 @@ public class EnemyManager : MonoBehaviour
     List<EnemyBehaviour> waveEnemies;
     int currentWave = 0;
 
+
+    List<EnemyBehaviour> currentEnemies = new List<EnemyBehaviour>();
     private void Start()
     {
 
@@ -54,14 +56,24 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    public void RemoveFromPool(EnemyBehaviour enemyToRemove)
+    {
+        Debug.Log("Remove from pool");
+        currentEnemies.Remove(enemyToRemove);
+    }
 
     public void SpawnEnemy()
     {
         if(currentWave > waveEnemies.Count - 1)
         {
-            GameManager.Instance.ChangeScene(2);
+            if(currentEnemies.Count == 0)
+            {
+                GameManager.Instance.ChangeScene(2);
+                return;
+            }
             return;
         }
+        EnemyBehaviour enemyInstance = null;
         var enemy = spawner.SpawnEnemies(waveEnemies, currentWave);
         if (enemy == null)
         {
@@ -73,11 +85,11 @@ public class EnemyManager : MonoBehaviour
             var val = UnityEngine.Random.value;
             if (val >= 0.51f)
             {
-                Instantiate(enemy, LeftSpawnPoint.transform.position, Quaternion.identity).Initialize(ATTACKANGLE.LEFT);
+                enemyInstance = Instantiate(enemy, LeftSpawnPoint.transform.position, Quaternion.identity).Initialize(ATTACKANGLE.LEFT, RemoveFromPool);
             }
             else
             {
-                Instantiate(enemy, RightSpawnPoint.transform.position, Quaternion.identity).Initialize(ATTACKANGLE.RIGHT);
+                enemyInstance = Instantiate(enemy, RightSpawnPoint.transform.position, Quaternion.identity).Initialize(ATTACKANGLE.RIGHT, RemoveFromPool);
             }
         }
         else if (enemy.GetComponent<EnemyFlyingBasic>() != null)
@@ -85,13 +97,20 @@ public class EnemyManager : MonoBehaviour
             var val = UnityEngine.Random.value;
             if (val >= 0.51f)
             {
-                Instantiate(enemy, TopLeftSpawnPoint.transform.position, Quaternion.identity).Initialize(ATTACKANGLE.TOPLEFT);
+                enemyInstance = Instantiate(enemy, TopLeftSpawnPoint.transform.position, Quaternion.identity).Initialize(ATTACKANGLE.TOPLEFT, RemoveFromPool);
             }
             else
             {
-                Instantiate(enemy, TopRightSpawnPoint.transform.position, Quaternion.identity).Initialize(ATTACKANGLE.TOPRIGHT);
+                enemyInstance = Instantiate(enemy, TopRightSpawnPoint.transform.position, Quaternion.identity).Initialize(ATTACKANGLE.TOPRIGHT, RemoveFromPool);
             }
         }
+
+
+        if (enemyInstance != null)
+        {
+            currentEnemies.Add(enemyInstance); 
+        }
+
     }
 
 

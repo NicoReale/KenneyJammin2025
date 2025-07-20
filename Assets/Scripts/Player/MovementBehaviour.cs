@@ -20,6 +20,8 @@ public class MovementBehaviour : MonoBehaviour
     private bool isTeleporting = false;
     private Rigidbody2D rb;
 
+    public Animator anim;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -32,18 +34,36 @@ public class MovementBehaviour : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                StartCoroutine(TeleportTo(leftTarget.position));
+                anim.SetTrigger("blink");
+                leftTeleport = true;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                StartCoroutine(TeleportTo(rightTarget.position));
+                anim.SetTrigger("blink");
+                rightTeleport = true;
             }
         }
         {             
             if (Input.GetKeyDown(KeyCode.UpArrow) && IsGrounded())
             {
-                transform.position = new Vector3(transform.position.x,transform.position.y + jumpForce, transform.position.z);                              
+                transform.position = new Vector3(transform.position.x,transform.position.y + jumpForce, transform.position.z);
+                anim.SetTrigger("Fall");
             }
+        }
+    }
+    bool leftTeleport = false;
+    bool rightTeleport = false;
+    public void Teleport()
+    {
+        if (leftTeleport)
+        {
+            StartCoroutine(TeleportTo(leftTarget.position));
+            leftTeleport = false;
+        }
+        else if (rightTeleport)
+        {
+            StartCoroutine(TeleportTo(rightTarget.position));
+            rightTeleport = false;
         }
     }
 
