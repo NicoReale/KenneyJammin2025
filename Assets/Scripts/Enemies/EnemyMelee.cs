@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class EnemyMelee : EnemyBehaviour
 {
-    float attackTimer = 0;
+    float attackTimer = EntityData.EnemyMelee.attackTimer;
     public override void Attack(float time)
     {
         attackTimer -= time;
         if (attackTimer < 0)
         {
             animator.SetTrigger("Attack");
-            attackTimer = 3;
+            attackTimer = EntityData.EnemyMelee.attackTimer;
         }
     }
 

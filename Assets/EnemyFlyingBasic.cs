@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyFlyingBasic : EnemyBehaviour
 {
-    float timer = 5;
+    float timer = EntityData.EnemyBasicFlying.attackTimer;
     bool wait = true;
     float distance = 0;
     public override void Attack(float time)
