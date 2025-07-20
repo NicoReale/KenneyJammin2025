@@ -16,4 +16,15 @@ public class HorizontalProjectile : MonoBehaviour
     {
         transform.position += (Vector3)(direction * speed * Time.deltaTime);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        var player = collision.gameObject.GetComponent<PlayerBehaviour>();
+
+        if (player != null)
+        {
+            GameManager.Instance.player.TakeDamage(10);
+            Destroy(gameObject);
+        }
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 
 public class EnemyManager : MonoBehaviour
@@ -24,6 +25,8 @@ public class EnemyManager : MonoBehaviour
     List<EnemyBehaviour> waveEnemies;
     int currentWave = 0;
 
+    public GameObject horizontalProj;
+    float projTimer = 3;
 
     List<EnemyBehaviour> currentEnemies = new List<EnemyBehaviour>();
     private void Start()
@@ -125,11 +128,26 @@ public class EnemyManager : MonoBehaviour
     private void Update()
     {
         Timer -= Time.deltaTime;
-
+        projTimer -= Time.deltaTime;
         if(Timer <= 0 )
         {
             Timer = UnityEngine.Random.Range(1, 3);
             SpawnEnemy();
+        }
+        if(projTimer <= 0 )
+        {
+            var rndSide = UnityEngine.Random.Range(0, 2);
+            if (rndSide >= 0.5f)
+            {
+                var proj = Instantiate(horizontalProj, RightSpawnPoint.transform.position, Quaternion.identity);
+                proj.GetComponent<HorizontalProjectile>().SetDirection(new Vector2(-1,0));
+            }
+            else
+            {
+                var proj = Instantiate(horizontalProj, LeftSpawnPoint.transform.position, Quaternion.identity);
+                proj.GetComponent<HorizontalProjectile>().SetDirection(new Vector2(1, 0));
+            }
+            projTimer = 7;
         }
     }
 }
