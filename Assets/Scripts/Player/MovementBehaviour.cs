@@ -36,11 +36,13 @@ public class MovementBehaviour : MonoBehaviour
             {
                 anim.SetTrigger("blink");
                 leftTeleport = true;
+                EntityData.playerData.Power += 0.7f;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 anim.SetTrigger("blink");
                 rightTeleport = true;
+                EntityData.playerData.Power += 0.7f;
             }
         }
         {             
@@ -48,6 +50,7 @@ public class MovementBehaviour : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x,transform.position.y + jumpForce, transform.position.z);
                 anim.SetTrigger("Fall");
+                EntityData.playerData.Power += 2;
             }
         }
     }

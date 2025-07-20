@@ -47,18 +47,22 @@ public class AttackBehaviour
             case ATTACKANGLE.LEFT:
                 Debug.Log("Attack Left");
                 ShootFireball(side, LeftAttackPoint.transform.position, LeftAttackPoint.transform.rotation);
+                EntityData.playerData.Power += 2;
                 return side;
             case ATTACKANGLE.RIGHT:
                 Debug.Log("Attack Right");
                 ShootFireball(side, RightAttackPoint.transform.position, RightAttackPoint.transform.rotation);
+                EntityData.playerData.Power += 2;
                 return side;
             case ATTACKANGLE.TOP:
                 throw new Exception("Not Implemented");
             case ATTACKANGLE.TOPRIGHT:
                 ShootWave(side, TopRightAttackPoint.transform.position, TopRightAttackPoint.transform.rotation);
+                EntityData.playerData.Power += 3.5f;
                 return side;
             case ATTACKANGLE.TOPLEFT:
                 ShootWave(side, TopLeftAttackPoint.transform.position, TopLeftAttackPoint.transform.rotation);
+                EntityData.playerData.Power += 3.5f;
                 return side;
             default: return side;
         }
