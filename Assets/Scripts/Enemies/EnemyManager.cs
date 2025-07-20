@@ -56,7 +56,7 @@ public class EnemyManager : MonoBehaviour
     private void Initialize()
     {
         spawner = new EnemySpawner();
-        waveEnemies = new List<EnemyBehaviour> { enemyPrefabs[0], enemyPrefabs[1] }; // or however many enemies your level uses
+        waveEnemies = new List<EnemyBehaviour> { enemyPrefabs[0], enemyPrefabs[1] };
     }
 
     public void GetLevelWaves(int waveAmount, List<List<int>> amountToSpawnPerWave)
@@ -74,15 +74,13 @@ public class EnemyManager : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        if(currentWave > waveEnemies.Count - 1)
+
+        if(currentEnemies.Count == 0 && currentWave >= spawner.GetLevelLength())
         {
-            if(currentEnemies.Count == 0)
-            {
-                GameManager.Instance.ChangeScene(2);
-                return;
-            }
+            GameManager.Instance.ChangeScene(2);
             return;
         }
+
         EnemyBehaviour enemyInstance = null;
         var enemy = spawner.SpawnEnemies(waveEnemies, currentWave);
         if (enemy == null)
@@ -178,5 +176,10 @@ public class EnemySpawner
         enemySpawnAmount[wave][selected]--;
 
         return selected;
+    }
+
+    public int GetLevelLength()
+    {
+        return enemySpawnAmount.Count;
     }
 }
