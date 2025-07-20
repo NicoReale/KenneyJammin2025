@@ -7,6 +7,7 @@ public class PlayerData
 {
     public float health;
     public string name;
+    public float Power;
 }
 public class BasicAttack
 {

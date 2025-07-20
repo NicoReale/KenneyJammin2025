@@ -11,6 +11,9 @@ public class PowerBehaviour : MonoBehaviour
 
     private void PowerCharge()
     {
+        Power = EntityData.playerData.Power;
+
+
         if(Power > 100)
         {
             ManaOverflow = true;
@@ -21,14 +24,12 @@ public class PowerBehaviour : MonoBehaviour
             EntityData.gameData.currentGameSpeed = 1;
         }
 
-        if (ManaOverflow)
-        {
-            Input.GetKeyDown(KeyCode.Space);
-            {
-                Instantiate(AreaDamage);
-                Power = 0;
+        if (ManaOverflow && Input.GetKeyDown(KeyCode.Space))
+        {          
+                Instantiate(AreaDamage, transform.position, Quaternion.identity);
+                EntityData.playerData.Power = 0;
                 ManaOverflow = false;
-            }
+            
         }
 
     }
